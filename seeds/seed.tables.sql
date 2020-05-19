@@ -3,7 +3,8 @@ BEGIN;
 TRUNCATE
   "word",
   "language",
-  "user";
+  "user"
+  RESTART IDENTITY CASCADE; 
 
 INSERT INTO "user" ("id", "username", "name", "password")
 VALUES
