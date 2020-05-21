@@ -12,40 +12,7 @@ const LanguageService = {
       .where('language.user_id', user_id)
       .first()
   },
-
-  // getLanguageById(db, language_id) {
-  //   return db
-  //     .from('language')
-  //     .select(
-  //       'language.id',
-  //       'language.name',
-  //       'language.user_id',
-  //       'language.head',
-  //       'language.total_score',
-  //     )
-  //     .where('language.id', language_id)
-  //     .first()
-  // },
-
-  // getLanguageHead(db, language_id) {
-  //   return db
-  //     .from('word')
-  //     .select(
-  //       'word.id',
-  //       'word.language_id',
-  //       'word.original',
-  //       'word.translation',
-  //       'word.next',
-  //       'word.memory_value',
-  //       'word.correct_count',
-  //       'word.incorrect_count',
-  //       'language.total_score',
-  //     )
-  //     .leftJoin('language', 'language.head', 'word.id')
-  //     .where('language.id', language_id)
-  //     .first()
-  // },
-  
+    
   getLanguageWords(db, language_id) {
     return db
       .from('word')
@@ -130,7 +97,7 @@ const LanguageService = {
       }
     });
   },
-  
+
 }
 
 module.exports = LanguageService
