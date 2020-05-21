@@ -1,3 +1,5 @@
+const {LinkedList} = require('./linked-list');
+
 const LanguageService = {
   getUsersLanguage(db, user_id) {
     return db
@@ -12,7 +14,7 @@ const LanguageService = {
       .where('language.user_id', user_id)
       .first()
   },
-    
+
   getLanguageWords(db, language_id) {
     return db
       .from('word')
@@ -58,45 +60,83 @@ const LanguageService = {
       .where({ id })
       .update({ ...fields });
   },
-  async populateList(db, head) {
-    let word;
-    try {
-      word = await this.getWord(db, head);
-    } catch (error) {
-      throw new Error("there was an error getting the word");
+  async populateLinkedList(db, head) {
+    const ll = new LinkedList({
+      id: language.id,
+      name: language.name,
+      total_score: language.total_score,
+    })
+
+    let word = words.find(w => w.id === language.head)
+
+    ll.insert({
+      id: word.id,
+      original: word.original,
+      translation: word.translation,
+      memory_value: word.memory_value,
+      correct_count: word.correct_count,
+      incorrect_count: word.incorrect_count,
+    })
+
+    while (word.next) {
+      word = words.find(w => w.id === word.next)
+
+      ll.insert({
+        id: word.id,
+        original: word.original,
+        translation: word.translation,
+        memory_value: word.memory_value,
+        correct_count: word.correct_count,
+        incorrect_count: word.incorrect_count,
+      })
     }
-    let list = new LinkedList();
-    let id = word.id;
-    while (id) {
-      id = word.next;
-      list = insertAfter(word);
-      try {
-        word = await this.getWord(db, id);
-      } catch (error) {
-        throw new Error("there was an error getting the word");
-      }
-    }
-    return list;
+
+    return ll
   },
 
-  updateWords(db, list, user_id) {
-    return db.transaction(async (trx) => {
-      let current = list.head;
-      await trx
-        .into("language")
-        .where({ user_id })
-        .update({ head: current.value.id });
-      while (current !== null) {
-        await trx
-          .into("word")
-          .where({ id: current.value.id })
+  updateLinkedList(db, linkedLanguage) {
+    return db.transaction(trx =>
+      Promise.all([
+        db('language')
+          .transacting(trx)
+          .where('id', linkedLanguage.id)
           .update({
-            next: current.next !== null ? current.next.value.id : null,
-          });
-        current = current.next;
-      }
-    });
-  },
+            total_score: linkedLanguage.total_score,
+            head: linkedLanguage.head.value.id,
+          }),
+        ...linkedLanguage.map(node =>
+          db('word')
+            .transacting(trx)
+            .where('id', node.value.id)
+            .update({
+              memory_value: node.value.memory_value,
+              correct_count: node.value.correct_count,
+              incorrect_count: node.value.incorrect_count,
+              next: node.next ? node.next.value.id : null,
+            })
+        )
+      ])
+    )
+  }
+
+  // updateWords(db, list, user_id) {
+  //   return db.transaction(async (trx) => {
+  //     let current = list.head;
+  //     await trx
+  //       .into("language")
+  //       .where({ user_id })
+  //       .update({ head: current.value.id });
+  //     while (current !== null) {
+  //       await trx
+  //         .into("word")
+  //         .where({ id: current.value.id })
+  //         .update({
+  //           next: current.next !== null ? current.next.value.id : null,
+  //         });
+  //       current = current.next;
+  //     }
+  //   });
+  // },
 
 }
 
