@@ -58,16 +58,16 @@ const UserService = {
         .first()
 
       const languageWords = [
-        ['el zorro', 'fox', 2],
-        ['la vaca', 'cow', 3],
-        ['el ratón', 'mouse', 4],
-        ['el conejo', 'rabbit', 5],
-        ['el águila', 'eagle', 6],
-        ['el cisne', 'swan', 7],
-        ['el búho', 'owl', 8],
-        ['la rata', 'rat', 9],
-        ['la abeja', 'bee', 10],
-        ['el mono', 'monkey', null],
+        ['el zorro', 'the fox', 2],
+        ['la vaca', 'the cow', 3],
+        ['el ratón', 'the mouse', 4],
+        ['el conejo', 'the rabbit', 5],
+        ['el águila', 'the eagle', 6],
+        ['el cisne', 'the swan', 7],
+        ['el búho', 'the owl', 8],
+        ['la rata', 'the rat', 9],
+        ['la abeja', 'the bee', 10],
+        ['el mono', 'the monkey', null],
       ]
 
       const [languageHeadId] = await trx

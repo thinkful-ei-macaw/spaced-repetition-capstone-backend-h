@@ -175,16 +175,16 @@ describe('User Endpoints', function () {
           name: 'Spanish',
           total_score: 0,
           words: [
-            { original: 'el zorro', translation: 'fox' },
-            { original: 'la vaca', translation: 'cow' },
-            { original: 'el ratón', translation: 'mouse' },
-            { original: 'el conejo', translation: 'rabbit' },
-            { original: 'el águila', translation: 'eagle' },
-            { original: 'el cisne', translation: 'swan' },
-            { original: 'el búho', translation: 'owl' },
-            { original: 'la rata', translation: 'rat' },
-            { original: 'la abeja', translation: 'bee' },
-            { original: 'el mono', translation: 'monkey' },
+            { original: 'el zorro', translation: 'the fox' },
+            { original: 'la vaca', translation: 'the cow' },
+            { original: 'el ratón', translation: 'the mouse' },
+            { original: 'el conejo', translation: 'the rabbit' },
+            { original: 'el águila', translation: 'the eagle' },
+            { original: 'el cisne', translation: 'the swan' },
+            { original: 'el búho', translation: 'the owl' },
+            { original: 'la rata', translation: 'the rat' },
+            { original: 'la abeja', translation: 'the bee' },
+            { original: 'el mono', translation: 'the monkey' },
           ]
         }
         return supertest(app)
