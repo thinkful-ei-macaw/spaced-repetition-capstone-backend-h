@@ -1,4 +1,3 @@
-  
 class _Node {
   constructor(value = null, next = null, previous = null) {
     this.value = value;
