@@ -52,7 +52,7 @@ class LinkedList {
       previousNode = currNode;
       currNode = currNode.next;
     }
-    previousNode.next = new _Node(item, currNode);
+    previousNode.next = new _Node(item, currNode, previousNode);
   }
   insertAt(item, key) {
     if (this.head === null) {
