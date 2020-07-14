@@ -21,7 +21,7 @@ class LinkedList {
       while (tempNode.next !== null) {
         tempNode = tempNode.next;
       }
-      tempNode.next = new _Node(item, null);
+      tempNode.next = new _Node(item, null, tempNode);
     }
   }
   insertBefore(item, key) {
