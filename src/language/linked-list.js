@@ -37,7 +37,7 @@ class LinkedList {
       previousNode = currNode;
       currNode = currNode.next;
     }
-    previousNode.next = new _Node(item, currNode);
+    previousNode.next = new _Node(item, currNode, previousNode);
   }
   insertAfter(item, key) {
     if (this.head === null) {
@@ -67,7 +67,7 @@ class LinkedList {
       previousNode = currNode;
       currNode = currNode.next;
     }
-    previousNode.next = new _Node(item, currNode);
+    previousNode.next = new _Node(item, currNode, previousNode);
   }
   find(item) {
     let currNode = this.head;
